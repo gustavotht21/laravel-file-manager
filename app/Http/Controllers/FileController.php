@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Http\Service\FileService;
 use App\Models\File;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,9 +30,11 @@ class FileController extends Controller
         return Inertia::render('File/FileCreate');
     }
 
-    public function store(StoreFileRequest $request): void
+    public function store(StoreFileRequest $request): RedirectResponse
     {
         $this->fileService->store($request->validated());
+
+        return redirect()->back();
     }
 
     public function show(File $file): void
