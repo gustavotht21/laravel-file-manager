@@ -61,7 +61,7 @@ export default function FileCreate({auth}: PageProps): ReactElement {
 
         <FormsLayout onSubmit={submit}>
             <FormsLayout.Body type="linear">
-                <TextFormField
+                <TextFormField<TFileCreateForm>
                     field="name"
                     label="File name"
                     value={data.name}

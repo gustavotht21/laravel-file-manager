@@ -28,9 +28,7 @@ class StoreFileRequest extends FormRequest
             'file' => [
                 'required',
                 'file',
-                'extensions' => [
-                    'pdf',
-                ]
+                'extensions:pdf'
             ]
         ];
     }

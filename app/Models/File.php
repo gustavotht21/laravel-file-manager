@@ -12,7 +12,8 @@ class File extends Model
 
     protected $fillable = [
         'name',
-        'path'
+        'path',
+        'user_id'
     ];
 
     public function user(): BelongsTo
