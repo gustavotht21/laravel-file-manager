@@ -4,10 +4,16 @@ export type TChangeElement<TForm> = ChangeEvent<HTMLInputElement & HTMLSelectEle
     target: {
         name: keyof TForm;
         value: TForm[keyof TForm];
-        files?: File | string | undefined; }
+        files?: File | string | undefined;
+    }
 }
 
 export interface ISelectItem {
     name: string;
     value: string;
+}
+
+type TFileCreateForm = {
+    name: string;
+    file?: File | (File & string);
 }

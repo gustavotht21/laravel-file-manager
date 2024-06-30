@@ -16,8 +16,8 @@ export default function BreadChump({routes}: {
                 className="flex items-center space-x-2"
             >
                 <BreadcrumbNavLink
-                    name={"Home"}
-                    href={"dashboard"}
+                    name="Dashboard"
+                    href="dashboard"
                 />
                 {routes.map((page: IBreadChumpRoute) => <BreadcrumbNavLink
                     key={page.name}
