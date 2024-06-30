@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+
+# shellcheck disable=SC2039
+allowed_scopes=("FEAT" "TEST" "STYLE" "WIP" "FIX" "DOCS" "REFACTOR" "UPDATE")
+YELLOW="$(tput setaf 3)"
+GREEN="$(tput setaf 2)"
+NC="$(tput sgr0)"
+
+# shellcheck disable=SC2113
+function display_help {
+    echo "${YELLOW}Available scopes:${NC}"
+    echo "${GREEN}FEAT${NC}        A new feature"
+    echo "${GREEN}TEST${NC}        Testing-related changes"
+    echo "${GREEN}STYLE${NC}       Code style changes"
+    echo "${GREEN}WIP${NC}         Work in progress"
+    echo "${GREEN}FIX${NC}         Code or bug fix"
+    echo "${GREEN}DOCS${NC}        Documentation changes"
+    echo "${GREEN}REFACTOR${NC}    Code refactoring"
+    echo "${GREEN}UPDATE{NC}       Update project dependencies"
+}
+
+while read -r line; do
+    # shellcheck disable=SC2039
+    if ! grep -qE '^[^#]* :: ' <<< "$line"; then
+        echo "All commit messages must contain a scope separated by ' :: '."
+        display_help
+        exit 1
+    fi
+
+    scope=$(echo "$line" | cut -d' ' -f1)
+    # shellcheck disable=SC2039
+    if ! echo "${allowed_scopes[*]}" | grep -qE "\b$scope\b"; then
+        echo "The scope '$scope' is not in the allowed list."
+        display_help
+        exit 1
+    fi
+done < "$1"
+
+exit 0;

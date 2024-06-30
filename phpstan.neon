@@ -1,0 +1,12 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+#    ignoreErrors:
+#        -
+#            identifier: missingType.generics
+
+    paths:
+        - app/
+
+    level: 6

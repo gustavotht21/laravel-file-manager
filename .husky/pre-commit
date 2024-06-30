@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+# Run pest tests
+./vendor/bin/sail bin pest --parallel
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+    echo "An error occurred in one or morex tests. Fix it before proceeding";
+    exit 1;
+fi;
+
+# Run larastan analysis
+./vendor/bin/sail bin phpstan
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+    echo "Some error was found by larastan. Fix it before proceeding";
+    exit 1;
+fi;
+
+# Run yarn build to check project has no errors on front
+./vendor/bin/sail yarn tsc;
+git add .;
+
+# Apply pint code format styles
+./vendor/bin/sail bin pint --dirty
+git add .;
+
+exit 0;
