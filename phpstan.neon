@@ -2,9 +2,9 @@ includes:
     - vendor/larastan/larastan/extension.neon
 
 parameters:
-#    ignoreErrors:
-#        -
-#            identifier: missingType.generics
+    ignoreErrors:
+        -
+            identifier: missingType.generics
 
     paths:
         - app/

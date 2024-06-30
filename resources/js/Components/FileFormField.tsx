@@ -1,21 +1,18 @@
 import React, {ReactElement} from "react";
-import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
 import {TChangeElement} from "@/types/forms";
+import FileInput from "@/Components/FileInput";
 
-export default function TextFormField<TForm>({
+export default function FileFormField<TForm>({
                                                  field,
-                                                 label,
-                                                 value,
+                                                 fileName,
                                                  errors,
                                                  onHandleChange,
                                                  className = ""
                                              }: {
     field: string;
-    label: string;
     onHandleChange: (e: TChangeElement<TForm>) => void;
-    value?: string | number;
+    fileName: string;
     errors: string | undefined;
     className?: string;
 }): ReactElement {
@@ -23,17 +20,11 @@ export default function TextFormField<TForm>({
     field = field.toLowerCase();
 
     return <div className={className}>
-        <InputLabel
-            htmlFor={field}
-            value={label}
-        />
-        <TextInput
-            type="text"
+        <FileInput
             id={field}
             name={field}
-            autoComplete={field}
+            fileName={fileName}
             onChange={onHandleChange}
-            value={value}
         />
         <InputError
             message={errors}
