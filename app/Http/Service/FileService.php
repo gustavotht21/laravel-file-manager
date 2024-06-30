@@ -14,13 +14,13 @@ class FileService
      */
     public function store(array $data): void
     {
-        $fileName = now()->format('Ymd_His') . '_' . $data['name'] . '.pdf';
+        $fileName = Auth::id() . '_' . $data['name'] . '.pdf';
 
-        Storage::disk('public')->putFileAs('/documents', $data["file"], $fileName);
+        Storage::disk('public')->putFileAs((new File)->getTable(), $data["file"], $fileName);
 
         File::query()->create([
             'name'    => $data['name'],
-            'path'    => Storage::url("documents/$fileName"),
+            'path'    => $fileName,
             'user_id' => Auth::id(),
         ]);
     }
