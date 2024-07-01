@@ -29,7 +29,7 @@ class FilePolicy
 
     public function delete(User $user, File $file): bool
     {
-        return false;
+        return $user->getKey() === $file->getKey();
     }
 
     public function restore(User $user, File $file): bool

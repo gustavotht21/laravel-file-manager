@@ -92,7 +92,7 @@ export default function TableFiles({
                                 </SecondaryButton>
                             </Link>
                             <DeleteActionButton
-                                href={["dashboard", {
+                                href={["file.destroy", {
                                     file: file.id
                                 }]}
                                 message={<TrashIcon className="w-5 h-5"/>}
