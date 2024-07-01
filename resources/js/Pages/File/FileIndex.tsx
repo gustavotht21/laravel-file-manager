@@ -2,10 +2,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {Head} from "@inertiajs/react";
 import {PageProps} from "@/types";
 import {IFile} from "@/types/app/models/models";
-import TableFiles from "@/Components/Tables/TableFiles";
 import React from "react";
 import EmptyState from "@/Components/EmptyState";
 import {DocumentPlusIcon} from "@heroicons/react/24/outline";
+import FileIndexBody from "@/Components/FileIndexBody";
 
 export default function FileIndex({auth, files}: PageProps<{
     files: IFile[];
@@ -21,7 +21,7 @@ export default function FileIndex({auth, files}: PageProps<{
             <Head title="File Index"/>
 
             {files.length !== 0
-             ? <TableFiles files={files}/>
+             ? <FileIndexBody files={files}/>
              : <EmptyState
                  title={"No files found"}
                  subtitle={"Create a new file"}

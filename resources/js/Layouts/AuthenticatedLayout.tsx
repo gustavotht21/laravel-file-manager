@@ -30,7 +30,7 @@ export default function Authenticated({user, header, children}: PropsWithChildre
                                 </NavLink>
                                 <NavLink
                                     href={route("file.index")}
-                                    active={["file.index", "files.create"].includes(route().current() as string)}
+                                    active={["file.index", "file.create"].includes(route().current() as string)}
                                 >
                                     Files
                                 </NavLink>
@@ -127,7 +127,7 @@ export default function Authenticated({user, header, children}: PropsWithChildre
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("file.index")}
-                            active={["file.index", "files.create"].includes(route().current() as string)}
+                            active={["file.index", "file.create"].includes(route().current() as string)}
                         >
                             Files
                         </ResponsiveNavLink>
