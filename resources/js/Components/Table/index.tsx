@@ -1,21 +1,16 @@
 import {ReactNode} from "react";
-import TableHead from "@/Components/Table/partials/TableHead";
-import TableBody from "@/Components/Table/partials/TableBody";
-import {twMerge} from "tailwind-merge";
+import {TableHead} from "@/Components/Table/partials/TableHead";
+import {TableBody} from "@/Components/Table/partials/TableBody";
 
-export function Table({head, body, fixed}: {
+export default function Table({head, body, className}: {
     head: ReactNode;
     body: ReactNode;
-    fixed?: boolean
+    className?: string;
 }) {
-    return <div className={"flex justify-center max-w-7xl w-full mx-auto py-6 px-4 sm:px-6 lg:px-8"}>
-        <div className="relative overflow-x-auto shadow-md rounded-lg w-full">
-            <table
-                className={twMerge("w-[1080px] lg:w-full text-sm text-center text-gray-900", fixed && "table-fixed")}
-            >
-                <TableHead children={head}/>
-                <TableBody children={body}/>
-            </table>
-        </div>
+    return <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <table className="w-full table-fixed shadow-md rounded overflow-hidden divide-y divide-gray-300 dark:divide-gray-500">
+            <TableHead children={head}/>
+            <TableBody children={body}/>
+        </table>
     </div>;
 }

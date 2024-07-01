@@ -84,7 +84,7 @@ export default function FileCreate({auth}: PageProps): ReactElement {
                      : "Save"}
                 </PrimaryButton>
 
-                <Link href={route("dashboard")}>
+                <Link href={route("file.index")}>
                     <SecondaryButton>
                         Cancel
                     </SecondaryButton>

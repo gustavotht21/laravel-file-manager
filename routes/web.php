@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -15,9 +16,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware([
+Route::get('/dashboard', DashboardController::class)->middleware([
     'auth',
     'verified'
 ])->name('dashboard');
@@ -36,7 +35,9 @@ Route::middleware('auth')->group(function () {
         'destroy'
     ])->name('profile.destroy');
 
-    Route::controller(FileController::class)->prefix('file')->group(function () {
+    Route::controller(FileController::class)->prefix('/file')->group(function () {
+        Route::get('/', 'index')->name('file.index');
+
         Route::get('/create', 'create')->name('file.create');
         Route::post('/create', 'store')->name('file.store');
     });

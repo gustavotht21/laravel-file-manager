@@ -17,3 +17,16 @@ export interface IBreadChumpRoute {
     name: string;
     href: string | TLink;
 }
+
+export interface IPagination<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    total: number;
+}

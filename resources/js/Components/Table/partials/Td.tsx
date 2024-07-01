@@ -1,20 +1,14 @@
-import React, {ReactElement, ReactNode} from "react";
+import React, {PropsWithChildren, ReactNode} from "react";
 import {twMerge} from "tailwind-merge";
 
-export default function Td({
-                               children,
-                               colSpan = 1,
-                               rowSpan = 1,
-                               className
-                           }: {
+export function Td({children, className = "", colSpan = 1, rowSpan = 1}: PropsWithChildren<{
+    className?: string;
     colSpan?: number;
     rowSpan?: number;
-    className?: string;
-    children?: ReactNode;
-}) {
+}>): ReactNode {
     return <td
         scope="col"
-        className={twMerge("px-4 py-8", className)}
+        className={twMerge("whitespace-nowrap py-4 pl-4 pr-3 text-gray-600 dark:text-gray-300 sm:pl-6", className)}
         colSpan={colSpan}
         rowSpan={rowSpan}
     >

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexFileRequest;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Http\Service\FileService;
@@ -20,9 +21,11 @@ class FileController extends Controller
     {
     }
 
-    public function index(): void
+    public function index(IndexFileRequest $request): Response
     {
-        //
+        return Inertia::render('File/FileIndex', [
+            'files' => File::search(),
+        ]);
     }
 
     public function create(): Response
