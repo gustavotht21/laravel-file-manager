@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\File;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreFileRequest extends FormRequest
 {
@@ -23,7 +24,8 @@ class StoreFileRequest extends FormRequest
                 'required',
                 'string',
                 'min:3',
-                'max:255'
+                'max:255',
+                Rule::unique((new File)->getTable(), 'name')->where('user_id', $this->user()->getKey())
             ],
             'file' => [
                 'required',

@@ -14,7 +14,7 @@ class FileService
      */
     public function store(array $data): void
     {
-        $fileName = Auth::id() . '_' . $data['name'] . '.pdf';
+        $fileName = $data['name'] . '.pdf';
 
         Storage::disk('public')->putFileAs((new File)->getTable(), $data["file"], $fileName);
 

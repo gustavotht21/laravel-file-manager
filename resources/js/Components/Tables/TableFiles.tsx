@@ -11,6 +11,7 @@ import {IFile} from "@/types/app/models/models";
 import {Link} from "@inertiajs/react";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DeleteActionButton from "@/Components/DeleteActionButton";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 type TForm = {
     filterBy: TFileFilters;
@@ -44,6 +45,17 @@ export default function TableFiles({
     };
 
     return <>
+        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 mt-6 flex justify-end">
+            <Link
+                href={route("file.create")}
+                className="self-end"
+            >
+                <PrimaryButton>
+                    New file
+                </PrimaryButton>
+            </Link>
+        </div>
+
         <FilterInput<TForm>
             onHandleChange={onHandleChange}
             onHandleChangeSelect={onHandleChangeSelect}
