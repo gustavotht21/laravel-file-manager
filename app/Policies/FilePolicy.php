@@ -9,7 +9,7 @@ class FilePolicy
 {
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     public function view(User $user, File $file): bool
