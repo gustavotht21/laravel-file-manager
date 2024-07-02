@@ -6,9 +6,8 @@ import {Td} from "@/Components/Table/partials/Td";
 import {FilterItems, FilterItemsBy, SortBy} from "@/Helpers/Table/FilterTableData";
 import {ISelectItem, TChangeElement} from "@/types/forms";
 import FilterInput from "@/Components/FilterInput";
-import {PencilSquareIcon, TrashIcon} from "@heroicons/react/16/solid";
+import {DocumentArrowDownIcon, TrashIcon} from "@heroicons/react/16/solid";
 import {IFile} from "@/types/app/models/models";
-import {Link} from "@inertiajs/react";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DeleteActionButton from "@/Components/DeleteActionButton";
 
@@ -86,11 +85,13 @@ export default function TableFiles({
                     <Td className="hidden lg:table-cell">{file.created_at}</Td>
                     <Td>
                         <div className="flex items-center gap-2">
-                            <Link href={route("dashboard")}>
+                            <a
+                                href={route("file.download", {file: file.id})}
+                            >
                                 <SecondaryButton>
-                                    <PencilSquareIcon className="w-5 h-5"/>
+                                    <DocumentArrowDownIcon className="w-5 h-5"/>
                                 </SecondaryButton>
-                            </Link>
+                            </a>
                             <DeleteActionButton
                                 href={["file.destroy", {
                                     file: file.id

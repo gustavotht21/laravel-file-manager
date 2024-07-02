@@ -22,6 +22,11 @@ class FilePolicy
         return true;
     }
 
+    public function download(User $user, File $file): bool
+    {
+        return $user->getKey() === $file->getKey();
+    }
+
     public function update(User $user, File $file): bool
     {
         return false;

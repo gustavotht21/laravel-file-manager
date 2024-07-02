@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends Controller
 {
@@ -37,6 +38,16 @@ class FileController extends Controller
         $this->fileService->store($request->validated());
 
         return redirect()->back();
+    }
+
+    public function download(File $file): StreamedResponse
+    {
+        Gate::authorize('download', [
+            File::class,
+            $file
+        ]);
+
+        return $this->fileService->download($file);
     }
 
     public function show(File $file): void
