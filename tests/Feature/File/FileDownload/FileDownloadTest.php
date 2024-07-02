@@ -26,7 +26,7 @@ it('should be able to download a file', function () {
     Storage::disk('public')->assertExists($this->fileTable . '/' . $file->getAttribute('path'));
 
     get(route('file.download', 1))
-        ->assertDownload($file->getAttribute('name'))
+        ->assertDownload($file->getAttribute('name') . '.pdf')
         ->assertOk();
 });
 
