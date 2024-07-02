@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class File extends Model
@@ -32,7 +33,7 @@ class File extends Model
 
     /**
      * @param File|int|string $file
-     * @return \Illuminate\Support\Collection<string, string>|null
+     * @return \Illuminate\Support\Collection<string, Carbon|string>|null
      */
     public static function getFileData(File|int|string $file): ?\Illuminate\Support\Collection
     {
@@ -47,9 +48,12 @@ class File extends Model
         }
 
         $time = now();
+
         if ($file instanceof File) {
-            $time = $file->getAttribute('created_at');
-            $file = $file->getAttribute('name');
+            return collect([
+                'name'       => $file->getAttribute('path'),
+                'created_at' => $file->getAttribute('created_at'),
+            ]);
         }
 
         return collect([
@@ -70,6 +74,7 @@ class File extends Model
     {
         return [
             'created_at' => 'datetime:Y-m-d H:i:s',
+            'updated_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
 }
