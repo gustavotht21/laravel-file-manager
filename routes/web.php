@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(FileController::class)->prefix('/file')->group(function () {
         Route::get('/', 'index')->name('file.index');
 
+        Route::get('/{file}/download', 'download')->name('file.download');
+
         Route::get('/create', 'create')->name('file.create');
         Route::post('/create', 'store')->name('file.store');
 
