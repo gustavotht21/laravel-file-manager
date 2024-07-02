@@ -37,6 +37,6 @@ class FileService
 
     public function download(File $file): StreamedResponse
     {
-        return Storage::disk('public')->download($file->getTable() . '/' . $file->getAttribute('path'), $file->getAttribute('name'));
+        return Storage::disk('public')->download($file->getTable() . '/' . $file->getAttribute('path'), $file->getAttribute('name') . '.pdf');
     }
 }
