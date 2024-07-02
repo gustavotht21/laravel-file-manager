@@ -54,7 +54,7 @@ class FileController extends Controller
         //
     }
 
-    public function destroy(File $file): void
+    public function destroy(File $file): RedirectResponse
     {
         Gate::authorize('delete', [
             File::class,
@@ -62,5 +62,7 @@ class FileController extends Controller
         ]);
 
         $this->fileService->delete($file);
+
+        return redirect()->back();
     }
 }
