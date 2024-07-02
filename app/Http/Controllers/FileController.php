@@ -9,8 +9,10 @@ use App\Http\Service\FileService;
 use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileController extends Controller
 {
@@ -37,6 +39,16 @@ class FileController extends Controller
         $this->fileService->store($request->validated());
 
         return redirect()->back();
+    }
+
+    public function download(File $file): StreamedResponse
+    {
+        Gate::authorize('download', [
+            File::class,
+            $file
+        ]);
+
+        return Storage::download('public/' . $file->getTable() . '/' . $file->getAttribute('path'), 'New file.pdf');
     }
 
     public function show(File $file): void
