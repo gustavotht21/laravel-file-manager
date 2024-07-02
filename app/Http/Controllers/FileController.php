@@ -9,7 +9,6 @@ use App\Http\Service\FileService;
 use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -48,7 +47,7 @@ class FileController extends Controller
             $file
         ]);
 
-        return Storage::download('public/' . $file->getTable() . '/' . $file->getAttribute('path'), 'New file.pdf');
+        return $this->fileService->download($file);
     }
 
     public function show(File $file): void

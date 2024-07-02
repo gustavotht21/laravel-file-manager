@@ -6,6 +6,7 @@ use App\Models\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileService
 {
@@ -29,10 +30,13 @@ class FileService
 
     public function delete(File $file): void
     {
-        $filePath = File::getFileData($file)->get('name');
-
-        Storage::disk('public')->delete($file->getTable() . '/' . $filePath);
+        Storage::disk('public')->delete($file->getTable() . '/' . $file->getAttribute('path'));
 
         $file->delete();
+    }
+
+    public function download(File $file): StreamedResponse
+    {
+        return Storage::disk('public')->download($file->getTable() . '/' . $file->getAttribute('path'), $file->getAttribute('name'));
     }
 }
