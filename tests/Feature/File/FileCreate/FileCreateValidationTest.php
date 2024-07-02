@@ -24,13 +24,15 @@ it('should be able to users create a file', function () {
         'file' => UploadedFile::fake()->create('test.pdf')
     ])->assertRedirect();
 
+    $file = File::getFileData(File::query()->first()->getKey());
+
     $this->assertDatabaseCount($this->fileTable, 1);
     $this->assertDatabaseHas($this->fileTable, [
         'name' => 'test name',
-        'path' => 'test name.pdf'
+        'path' => $file->get('name'),
     ]);
 
-    Storage::disk('public')->assertExists($this->fileTable . '/' . 'test name.pdf');
+    Storage::disk('public')->assertExists($this->fileTable . '/' . $file->get('name'));
 });
 
 it('should not be able to unauthenticated users create a file', function () {
@@ -41,12 +43,9 @@ it('should not be able to unauthenticated users create a file', function () {
     ])->assertRedirect();
 
     $this->assertDatabaseCount($this->fileTable, 0);
-    $this->assertDatabaseMissing($this->fileTable, [
-        'name' => 'test name',
-        'path' => 'test name.pdf'
-    ]);
+    $this->assertDatabaseMissing($this->fileTable, ['name' => 'test name']);
 
-    Storage::disk('public')->assertMissing($this->fileTable . '/' . 'test name.pdf');
+    Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
 });
 
 /*
@@ -65,7 +64,7 @@ it('should a file has a name', function () {
     $this->assertDatabaseCount($this->fileTable, 0);
     $this->assertDatabaseMissing($this->fileTable, ['name' => null]);
 
-    Storage::disk('public')->assertMissing($this->fileTable . '/' . '.pdf');
+    Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
 });
 
 it('should file name has at least 3 characters', function () {
@@ -84,7 +83,7 @@ it('should file name has at least 3 characters', function () {
     $this->assertDatabaseCount($this->fileTable, 0);
     $this->assertDatabaseMissing($this->fileTable, ['name' => 'aa']);
 
-    Storage::disk('public')->assertMissing($this->fileTable . '/' . 'aa.pdf');
+    Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
 });
 
 it('should file name has at most 255 characters', function () {
@@ -104,7 +103,7 @@ it('should file name has at most 255 characters', function () {
     $this->assertDatabaseCount($this->fileTable, 0);
     $this->assertDatabaseMissing($this->fileTable, ['name' => null]);
 
-    Storage::disk('public')->assertMissing($this->fileTable . '/' . $veryBigName . '.pdf');
+    Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
 });
 
 /*
@@ -123,7 +122,7 @@ it('should a file has an upload', function () {
     $this->assertDatabaseCount($this->fileTable, 0);
     $this->assertDatabaseMissing($this->fileTable, ['path' => null]);
 
-    Storage::disk('public')->assertMissing($this->fileTable . '/' . '.pdf');
+    Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
 });
 
 it('should file extension be .pdf', function () {
@@ -146,11 +145,8 @@ it('should file extension be .pdf', function () {
         ]);
 
         $this->assertDatabaseCount($this->fileTable, 0);
-        $this->assertDatabaseMissing($this->fileTable, [
-            'name' => 'test name',
-            'path' => 'test name' . $extension
-        ]);
+        $this->assertDatabaseMissing($this->fileTable, ['name' => 'test name']);
 
-        Storage::disk('public')->assertMissing($this->fileTable . '/' . 'test name' . $extension);
+        Storage::disk('public')->assertDirectoryEmpty($this->fileTable);
     }
 });

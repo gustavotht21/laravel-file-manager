@@ -8,13 +8,12 @@ use App\Http\Requests\UpdateFileRequest;
 use App\Http\Service\FileService;
 use App\Models\File;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class FileController extends Controller
 {
-
-
     public function __construct(
         private readonly FileService $fileService
     )
@@ -55,8 +54,15 @@ class FileController extends Controller
         //
     }
 
-    public function destroy(File $file): void
+    public function destroy(File $file): RedirectResponse
     {
-        //
+        Gate::authorize('delete', [
+            File::class,
+            $file
+        ]);
+
+        $this->fileService->delete($file);
+
+        return redirect()->back();
     }
 }

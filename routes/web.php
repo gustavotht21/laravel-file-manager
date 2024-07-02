@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/create', 'create')->name('file.create');
         Route::post('/create', 'store')->name('file.store');
+
+        Route::delete('/{file}/delete', 'destroy')->name('file.destroy');
     });
 });
 
