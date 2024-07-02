@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IndexFileRequest;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
-use App\Http\Service\FileService;
+use App\Http\Services\FileService;
 use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
